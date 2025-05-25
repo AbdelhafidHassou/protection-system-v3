@@ -1,0 +1,44 @@
+# requirements.txt
+# Core Framework
+fastapi
+uvicorn
+python-multipart
+
+# Database
+motor
+pymongo
+
+# Redis
+redis
+
+# ML and Data Processing
+scikit-learn
+pandas
+numpy
+
+# API Models and Validation
+pydantic
+pydantic-settings
+email-validator
+
+# Security
+pyjwt
+python-jose
+passlib
+
+# Monitoring and Metrics
+prometheus-client
+
+# Utilities
+python-dateutil
+pytz
+aiofiles
+
+# Development and Testing
+pytest
+pytest-asyncio
+httpx
+faker
+
+# Environment Management
+python-dotenv
