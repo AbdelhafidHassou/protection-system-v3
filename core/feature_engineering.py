@@ -12,6 +12,7 @@ from collections import defaultdict
 from database.mongodb import MongoDB
 from database.models import DataAggregator
 
+
 logger = logging.getLogger(__name__)
 
 class FeatureEngineering:

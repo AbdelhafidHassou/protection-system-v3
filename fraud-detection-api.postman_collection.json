@@ -1,0 +1,172 @@
+{
+    "info": {
+        "name": "Fraud Detection API",
+        "description": "Real-time fraud detection system with ML-powered risk assessment",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseURL",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseURL}}/health",
+                    "host": ["{{baseURL}}"],
+                    "path": ["health"]
+                }
+            }
+        },
+        {
+            "name": "Normal Login - Low Risk",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"email\": \"normal.user@example.com\",\n    \"timestamp\": \"Wed May 14 16:17:30 UTC 2025\",\n    \"action\": \"login\",\n    \"status\": \"true\",\n    \"duration\": 500,\n    \"ip\": \"192.168.1.100\",\n    \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows NT\",\n    \"deviceType\": \"Desktop\",\n    \"policyKey\": \"user\",\n    \"service\": \"trust-service\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/analyze",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "analyze"]
+                }
+            }
+        },
+        {
+            "name": "Suspicious Activity - Delete Action",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"email\": \"suspicious.user@example.com\",\n    \"timestamp\": \"Thu May 15 03:45:12 UTC 2025\",\n    \"action\": \"deleteCollaboratorById\",\n    \"status\": \"true\",\n    \"duration\": 1500,\n    \"ip\": \"45.67.89.123\",\n    \"userAgent\": \"Mozilla/5.0 (X11; Linux x86_64) Chrome/119.0.0.0\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Linux\",\n    \"deviceType\": \"Desktop\",\n    \"policyKey\": \"admin\",\n    \"service\": \"admin-service\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/analyze",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "analyze"]
+                }
+            }
+        },
+        {
+            "name": "High Risk - Bot Activity",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"email\": \"bot.attack@example.com\",\n    \"timestamp\": \"Thu May 15 02:00:00 UTC 2025\",\n    \"action\": \"exportData\",\n    \"status\": \"true\",\n    \"duration\": 50,\n    \"ip\": \"123.45.67.89\",\n    \"userAgent\": \"curl/7.68.0\",\n    \"browser\": \"Unknown\",\n    \"os\": \"Unknown\",\n    \"deviceType\": \"Unknown\",\n    \"policyKey\": \"admin\",\n    \"service\": \"data-service\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/analyze",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "analyze"]
+                }
+            }
+        },
+        {
+            "name": "Failed Login Attempt",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"email\": \"failed.login@example.com\",\n    \"timestamp\": \"Wed May 14 16:17:30 UTC 2025\",\n    \"action\": \"login\",\n    \"status\": \"false\",\n    \"duration\": 3000,\n    \"ip\": \"192.168.1.100\",\n    \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/115.0\",\n    \"browser\": \"Firefox\",\n    \"os\": \"Windows NT\",\n    \"deviceType\": \"Desktop\",\n    \"policyKey\": \"user\",\n    \"service\": \"auth-service\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/analyze",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "analyze"]
+                }
+            }
+        },
+        {
+            "name": "Get User History",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/user/normal.user@example.com/history?limit=10",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "user", "normal.user@example.com", "history"],
+                    "query": [
+                        {
+                            "key": "limit",
+                            "value": "10"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Submit Feedback",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"email\": \"normal.user@example.com\",\n    \"request_id\": \"{{request_id}}\",\n    \"was_fraud\": false,\n    \"feedback\": \"This was a legitimate login from my work computer\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/feedback",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "feedback"]
+                }
+            }
+        },
+        {
+            "name": "Trigger Model Training",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{}"
+                },
+                "url": {
+                    "raw": "{{baseURL}}/api/v1/train/trigger",
+                    "host": ["{{baseURL}}"],
+                    "path": ["api", "v1", "train", "trigger"]
+                }
+            }
+        }
+    ]
+}
